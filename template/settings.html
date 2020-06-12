@@ -1,0 +1,35 @@
+<div class="container settings" data-ng-controller="dashboardCtrl" data-ng-init="loadData()">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Account Settings</h1>
+            <form role="form" name="setting">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <p><input type="text" class="form-control" id="fullname" name="fullname" data-ng-model="updateAcc.fullname" required /><br /></p>
+
+                    <label for="email">Email</label>
+                    <p><input type="email" class="form-control" id="email" name="email" data-ng-model="updateAcc.email" required />
+                        <br />
+                        <span class="text-danger" data-ng-show="setting.email.$error.required && setting.email.$dirty">Email is required</span><span class="text-danger" data-ng-show="setting.email.$error.email">Enter a valid email address</span></p>
+
+                    <label>Account Type</label><br />
+                    <label for="personal"><input type="radio" name="accType" id="personal" value="Personal" data-ng-model="updateAcc.accType" />Personal</label>
+                    <label for="business"><input type="radio" name="accType" id="business" value="Business" data-ng-model="updateAcc.accType" />Business</label><br /><br />
+                    
+                    <p id="change-password-btn" role="button" class="text-primary">Change Password</p>
+                    <p id="cancel-change" role="button" class="text-danger" hidden>Cancel</p>
+                    <div id="change-password" hidden>
+                        <label for="password">Password</label>
+                        <p><input type="password" class="form-control" id="password" name="password" data-ng-model="updateAcc.password" pattern="(?=.*[$%^&*])[A-Za-z\d$%^&*]{8,}$" required /></p>
+
+                        <label for="confirmPass">Confirm Password</label>
+                        <p><input type="password" class="form-control" id="confirmPass" name="confirmPass" data-ng-model="updateAcc.confirmPass" required /><br />
+                            <span class="text-danger" data-ng-show="updateAcc.password != updateAcc.confirmPass">Passwords do not match</span></p>
+                    </div>
+                    
+                    <br/><button type="button" class="btn saveSetting" data-ng-click="updateSetting()">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

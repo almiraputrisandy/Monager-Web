@@ -1,0 +1,241 @@
+body.index{
+    background-image: url(../../images/indexbg.svg);
+}
+
+div.index{
+    padding-top: 17%;
+    text-align: center;
+}
+
+.right-col{
+    padding-top: 4.5%;
+    padding-left: 3%;
+}
+
+.left-col{
+    color: white;
+}
+
+.left-col h1{
+    font-family: 'Paytone One', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 4em;
+}
+
+.left-col h3{
+    line-height: 1.4em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+}
+
+.btn, .home-btn{
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
+    width: 100%;
+    background-color: #ac89e5;
+    color: white;
+}
+
+.login-modal{
+    font-size: 1em;
+    width: 25%;
+}
+
+.modal-footer, .modal-body{
+    text-align: center;
+}
+
+.disclaimer{
+    position: fixed;
+    bottom: 0;
+    background-color: whitesmoke;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    
+}
+
+.navbar-default{
+    background-color: #ac89e5;
+    border-color: transparent;
+    border-radius: 0;
+    padding-bottom: 1%;
+}
+nav ul li{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2em;
+}
+
+.logoutbtn{
+    padding-top: 10%;
+    font-size: 1em;
+}
+
+nav ul li a{
+    color: white;
+}
+
+nav ul{
+    float: right;
+    padding-right: 2%;
+    margin-top: -3.1%;
+}
+
+nav h3{
+    margin-left: 2%;
+    font-family: 'Paytone One', sans-serif;
+    letter-spacing: 0.1em;
+    color: white;
+}
+
+ul.nav li a:hover {
+    color: black;
+    background-color: transparent;
+}
+
+li.user{
+    margin-top: 2%;
+}
+
+.border{
+    border: 1px solid white;
+}
+
+div.expense h2, div.income h2, div.highest-expense h2{
+    font-family: 'Poppins', sans-serif;
+    color: black;
+    font-size: 2em;
+}
+
+div.dashboard-header h1{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 2.5em;
+}
+
+div.dashboard{
+    max-height: auto;
+}
+
+.container{
+    width: 90%;
+}
+
+div.dashboard, div.monthly-chart, div.dashboard-mobile{ 
+    font-family: 'Poppins', sans-serif;
+    margin-top: 1%;
+    background-color: white;
+    border-radius: 10px;
+    box-model: border-box;
+    border: 3px solid transparent;
+    background-clip:padding-box;
+}
+
+div.monthly-chart{
+    max-height: 100%;
+}
+
+.glyphicon.glyphicon-plus{
+    float: right;
+    border: 1px solid black;
+    border-radius: 100%;
+    padding: 1%;
+    font-size: 15px;
+}
+
+.glyphicon.glyphicon-pencil{
+    font-size: 25px;
+}
+
+.glyphicon.glyphicon-tags{
+    font-size: 10px;
+}
+
+ul.pgn{
+    width: 40%;
+    margin-top: -18.5%;
+    float: right;
+}
+
+td a.view-all-mobile{
+    float: right;
+    position: absolute;
+    right: 7%;
+    bottom: 12%;
+}
+
+ul.pgn li{
+    display: inline;
+    text-decoration: none;
+    padding: 1%;
+}
+
+div.all-expenses, div.all-income{
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+div.settings{
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+}
+table.all-expenses, table.all-income{
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table.all-expenses th, table.all-income th{
+    background-color: #ac89e5;
+}
+
+a.goBackBtn, .saveSetting, .download-pdf{
+    font-size: 1em;
+    width: auto;
+    margin-bottom: 2%;
+}
+
+.download-pdf-mobile{
+    font-size: 1em;
+    width: auto;
+    margin-bottom: 2%;
+    margin: 0 auto;
+    display: block;
+}
+
+.download-pdf{
+    float: right;
+    margin-right: 1.5%;
+    margin-top: -3.5%;
+}
+
+.mobile-menu{
+    text-align: center;
+    margin-top: 3%;
+}
+
+.glyphicon-menu-hamburger{
+    font-size: 30px;
+    color: black;
+    text-align: left;
+    position: absolute;
+    left: 25px;
+    top: 20px;
+    vertical-align: middle;
+}
+
+nav ul.mobile-menu{
+    float: left;
+    text-align: left;
+}
+
+ul.mobile-menu li.user{
+    padding-left: 10%;
+}
+
+#editExpModal{
+    color: black;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

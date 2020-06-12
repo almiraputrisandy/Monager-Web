@@ -1,0 +1,329 @@
+<div class="container" data-ng-controller="dashboardCtrl" data-ng-init="loadData()">
+
+
+    <div class="row dashboard-header">
+        <div class="col-md-6">
+            <h1>Current Balance: RM{{user.balance | number:"2"}}</h1>
+        </div>
+        <div class="col-md-6">
+            <h1>Available Daily Limit: <span class="text-success" id="currency">RM</span><span class="text-success" id="limit">{{availLimit | number:"2"}}</span> <span class="glyphicon glyphicon-pencil" role="button" data-toggle="modal" data-target="#editLimitModal"></span></h1>
+        </div>
+    </div>
+
+    <!--mobile view expenses & income-->
+    <div class="row hidden-lg hidden-md">
+        <div class="col-xs-12 expense dashboard-mobile" data-ng-controller="expPaginationCtrl">
+            <h2>Expenses <span class="glyphicon glyphicon-plus" role="button" data-toggle="modal" data-target="#addExpModal"></span></h2>
+            <p data-ng-show="userExpenses.length == 159">No data available</p>
+            <table class="table table-responsive table-hover expense" data-ng-hide="userExpenses.length == 159">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="exp in userExpenses | offset: currentPage*itemsPerPage
+								    | limitTo: itemsPerPage">
+                        <td>{{exp.name}}<br />
+                            <small><span class="glyphicon glyphicon-tags"></span> {{exp.category}}<br />Date: {{exp.date | date:"dd MMMM yyyy"}}</small></td>
+                        <td>RM{{exp.amount | number:"2"}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <ul class="pagination pagination-sm" data-ng-hide="userExpenses.length<4">
+                                <li data-ng-class="prevPageDisabled()">
+                                    <a href="" data-ng-click="prevPage()">Prev</a>
+                                </li>
+
+                                <li data-ng-repeat="n in range()" data-ng-class="{active: n == currentPage}" data-ng-click="setPage(n)">
+                                    <a href="">{{n+1}}</a>
+                                </li>
+
+                                <li data-ng-class="nextPageDisabled()">
+                                    <a href="" data-ng-click="nextPage()">Next</a>
+                                </li>
+                            </ul>
+                            <a href="#!all-expenses" class="view-all-mobile">View all</a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-xs-12 income dashboard-mobile" data-ng-controller="incPaginationCtrl">
+            <h2>Income <span class="glyphicon glyphicon-plus" role="button" data-toggle="modal" data-target="#addIncModal"></span></h2>
+            <p data-ng-show="userIncome.length == 157">No data available</p>
+            <table class="table table-responsive table-hover expense" data-ng-hide="userIncome.length==157">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="inc in userIncome | offset: currentPage*itemsPerPage
+								    | limitTo: itemsPerPage">
+                        <td>{{inc.name}}<br />
+                            <small><span class="glyphicon glyphicon-tags"></span> {{inc.category}}<br />Date: {{inc.date | date:"dd MMMM yyyy"}}</small></td>
+                        <td>RM{{inc.amount | number:"2"}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <ul class="pagination pagination-sm" data-ng-hide="userIncome.length<4">
+                                <li data-ng-class="prevPageDisabled()">
+                                    <a href="" data-ng-click="prevPage()">Prev</a>
+                                </li>
+
+                                <li data-ng-repeat="n in range()" data-ng-class="{active: n == currentPage}" data-ng-click="setPage(n)">
+                                    <a href="">{{n+1}}</a>
+                                </li>
+
+                                <li data-ng-class="nextPageDisabled()">
+                                    <a href="" data-ng-click="nextPage()">Next</a>
+                                </li>
+                            </ul>
+                            <a href="#!all-income" class="view-all-mobile">View all</a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!--Desktop view expenses & income-->
+    <div class="row">
+        <div class="col-md-6 col-xs-12 highest-expense dashboard">
+            <h2>Highest Expenses</h2>
+            <p data-ng-show="userExpenses.length == 159">No data available</p>
+
+            <canvas id="highestExpChart" data-ng-hide="userExpenses.length == 159"></canvas><br /><br /><br />
+        </div>
+        <div class="col-md-3 expense dashboard hidden-sm hidden-xs" data-ng-controller="expPaginationCtrl">
+            <h2>Expenses <span class="glyphicon glyphicon-plus" role="button" data-toggle="modal" data-target="#addExpModal"></span></h2>
+            <p data-ng-show="userExpenses.length == 159">No data available</p>
+            <table class="table table-responsive table-hover expense" data-ng-hide="userExpenses.length == 159">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="exp in userExpenses | offset: currentPage*itemsPerPage
+								    | limitTo: itemsPerPage">
+                        <td>{{exp.name}}<br />
+                            <small><span class="glyphicon glyphicon-tags"></span> {{exp.category}}<br />Date: {{exp.date | date:"dd MMMM yyyy"}}</small></td>
+                        <td>RM{{exp.amount | number:"2"}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <ul class="pagination pagination-sm" data-ng-hide="userExpenses.length<4">
+                                <li data-ng-class="prevPageDisabled()">
+                                    <a href="" data-ng-click="prevPage()">Prev</a>
+                                </li>
+
+                                <li data-ng-repeat="n in range()" data-ng-class="{active: n == currentPage}" data-ng-click="setPage(n)">
+                                    <a href="">{{n+1}}</a>
+                                </li>
+
+                                <li data-ng-class="nextPageDisabled()">
+                                    <a href="" data-ng-click="nextPage()">Next</a>
+                                </li>
+                            </ul>
+                            <ul class="pgn">
+                                <li><a href="#!all-expenses">View all</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-md-3 income dashboard hidden-sm hidden-xs" data-ng-controller="incPaginationCtrl">
+            <h2>Income <span class="glyphicon glyphicon-plus" role="button" data-toggle="modal" data-target="#addIncModal"></span></h2>
+            <p data-ng-show="userIncome.length == 157">No data available</p>
+            <table class="table table-responsive table-hover expense" data-ng-hide="userIncome.length==157">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="inc in userIncome | offset: currentPage*itemsPerPage
+								    | limitTo: itemsPerPage">
+                        <td>{{inc.name}}<br />
+                            <small><span class="glyphicon glyphicon-tags"></span> {{inc.category}}<br />Date: {{inc.date | date:"dd MMMM yyyy"}}</small></td>
+                        <td>RM{{inc.amount | number:"2"}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <ul class="pagination pagination-sm" data-ng-hide="userIncome.length<4">
+                                <li data-ng-class="prevPageDisabled()">
+                                    <a href="" data-ng-click="prevPage()">Prev</a>
+                                </li>
+
+                                <li data-ng-repeat="n in range()" data-ng-class="{active: n == currentPage}" data-ng-click="setPage(n)">
+                                    <a href="">{{n+1}}</a>
+                                </li>
+
+                                <li data-ng-class="nextPageDisabled()">
+                                    <a href="" data-ng-click="nextPage()">Next</a>
+                                </li>
+                            </ul>
+                            <ul class="pgn">
+                                <li><a href="#!all-income">View all</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!--Add Expenses Modal-->
+    <div id="addExpModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Expenses</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="expName">Name</label>
+                        <p><input type="text" id="expName" name="expName" data-ng-model="addExp.name" /></p>
+                        <label for="expAmount">Amount</label>
+                        <p><input type="number" id="expAmount" name="expAmount" data-ng-model="addExp.amount" /></p>
+                        <label>Category</label>
+                        <p><input type="text" list="expCategory" name="expCategory" data-ng-model="addExp.category">
+                            <datalist id="expCategory">
+                                <option data-ng-repeat="item in categories" value="{{item.catName}}"></option>
+                            </datalist>
+                        </p>
+                        <label>Date</label>
+                        <p><input type="date" id="expDate" name="expDate" data-ng-model="addExp.date"></p>
+                        <p><input type="checkbox" id="expToday" name="expToday"> Today</p>
+                        <br /><br />
+                        <button type="button" class="btn login-modal" data-ng-click="addExpense()">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add Income Modal-->
+    <div id="addIncModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Income</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="incName">Name</label>
+                        <p><input type="text" id="incName" name="incName" data-ng-model="addInc.name" /></p>
+                        <label for="incAmount">Amount</label>
+                        <p><input type="number" id="incAmount" name="incAmount" data-ng-model="addInc.amount" /></p>
+                        <label>Category</label>
+                        <p><input type="text" list="incCategory" name="incCategory" data-ng-model="addInc.category">
+                            <datalist id="incCategory">
+                                <option data-ng-repeat="item in categories" value="{{item.catName}}"></option>
+                            </datalist>
+                        </p>
+                        <label>Date</label>
+                        <p><input type="date" id="incDate" name="incDate" data-ng-model="addInc.date"></p>
+                        <p><input type="checkbox" id="incToday" name="incToday" data-ng-model="addInc.date"> Today</p>
+                        <br /><br />
+                        <button type="button" class="btn login-modal" data-ng-click="addIncome()">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit Limit Modal-->
+    <div id="editLimitModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Limit</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="editLimit">Amount</label>
+                        <p><input type="text" id="editLimit" name="editLimit" data-ng-model="user.limit" /></p>
+
+                        <br /><br />
+                        <button type="button" class="btn login-modal" data-ng-click="editLimit(user.limit)">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12 monthly-chart">
+            <h2>Monthly Expenses and Income</h2>
+            <button class="btn download-pdf hidden-xs hidden-sm" data-ng-hide="user.accType == 'Personal'" data-ng-click="downloadPDF()">Download PDF</button>
+            <p data-ng-show="userExpenses.length == 159 || userIncome.length == 157">No data available</p><br /><br />
+
+            <canvas id="monthlyExpAndInc" data-ng-hide="userExpenses.length == 159 || userIncome.length == 157" height="100" width="300"></canvas><br /><br />
+            <button class="btn download-pdf-mobile hidden-md hidden-lg" data-ng-hide="accType == 'Personal'" data-ng-click="downloadPDF()">Download PDF</button><br /><br />
+        </div>
+        
+        <!--Table for pdf download-->
+        <div class="col-md-12 monthly-chart" hidden>
+            <table id="monthly-summary" class="table">
+                <col>
+                <col>
+                <colgroup span="3"></colgroup>
+                <thead>
+                    <tr>
+                        <th colspan="2" scope="col"></th>
+                        <th scope="colgroup" data-ng-repeat="mth in months">{{mth}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th rowspan="{{labels.length + 2}}" scope="rowgroup">Expenses (RM)</th>
+                    </tr>
+                    <tr data-ng-repeat="category in labels">
+                        <th scope="row">{{category}}</th>
+                        <td data-ng-repeat="expCat in expMonthByCat[category] track by $index">{{expCat}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total: </td>
+                        <td data-ng-repeat="val in expMonth track by $index">{{val}}</td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <th rowspan="{{incLabels.length + 2}}" scope="rowgroup">Income (RM)</th>
+                    </tr>
+                    <tr data-ng-repeat="category in incLabels">
+                        <th scope="row">{{category}}</th>
+                        <td data-ng-repeat="incCat in incMonthByCat[category] track by $index">{{incCat}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total: </td>
+                        <td data-ng-repeat="val in incMonth track by $index">{{val}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div><br />
+
+</div>

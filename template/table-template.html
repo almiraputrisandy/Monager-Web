@@ -1,0 +1,73 @@
+<div data-ng-controller="dashboardCtrl" data-ng-init="loadData()">
+    <form class="form-inline" role="form">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search..." id="text" data-ng-model="searchText[expSearch]" data-ng-init="searchText={}; expSearch = 'name'" />
+
+            <label>Filter by:</label>
+
+            <label for="name"><input type="radio" name="name" value="name" id="name" data-ng-model="expSearch"> Name</label>
+            <label for="amount"><input type="radio" name="amount" value="amount" id="amount" data-ng-model="expSearch"> Amount</label>
+            <label for="category"><input type="radio" name="category" value="category" id="category" data-ng-model="expSearch"> Category</label>
+            <label for="date"><input type="radio" name="date" value="date" id="date" data-ng-model="expSearch"> Date</label>
+        </div>
+    </form>
+    <br /><br />
+    <div class="table-responsive">
+        <table class="table table-hover all-expenses">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in items | filter:searchText">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>RM{{item.amount | number:"2"}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.date | date:"dd MMMM yyyy"}}</td>
+                    <td><button class="btn-danger" data-ng-click="delete(item.id, item.type)"><span class="glyphicon glyphicon-trash"></span></button>
+                        <button class="btn-warning" data-toggle="modal" data-target="#editModal{{$index}}"><span class="glyphicon glyphicon-edit"></span></button>
+
+                        <!--Edit Modal-->
+                        <div id="editModal{{$index}}" tabindex="-1" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Edit</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <label for="editName">Name</label>
+                                            <p><input type="text" id="editName" name="editName" data-ng-model="item.name" /></p>
+                                            <label for="editAmount">Amount</label>
+                                            <p><input type="number" id="editAmount" name="editAmount" data-ng-model="item.amount" /></p>
+                                            <label>Category</label>
+                                            <p><input type="text" list="editCategory" name="editCategory" data-ng-model="item.category">
+                                                <datalist id="editCategory">
+                                                    <option data-ng-repeat="item in categories" value="{{item.catName}}"></option>
+                                                </datalist>
+                                            </p>
+                                            <label>Date</label>
+                                            <p><input type="date" id="editDate" name="editDate" data-ng-model="item.date"></p>
+                                            <p><input type="checkbox" id="editToday{{$index}}" name="editToday" data-ng-model="item.date"> Today</p>
+                                            <br /><br />
+                                            <button type="button" class="btn login-modal" data-ng-click="edit(item.id, $index, item.name, item.amount, item.category, item.date, item.type)">Edit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

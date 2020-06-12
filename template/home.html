@@ -1,0 +1,79 @@
+<div class="container" data-ng-controller="mainCtrl">
+    <div class="row index">
+        <div class="col-md-6 col-md-offset-1 left-col">
+            <h1>Monager</h1>
+            <h3>Having trouble keeping track of your expenses? Monager is your solution! Login or Sign up now for free.</h3>
+        </div>
+        <div class="col-md-4 right-col">
+            <button class="btn" data-ng-click="openLoginModal()">Login</button>
+            <br /><br />
+            <button class="btn" data-ng-click="openSignUpModal()">Sign Up</button>
+        </div>
+
+        <!--Login Modal-->
+        <script type="text/ng-template" id="loginModal">
+            <div class="modal-header">
+                            <button type="button" class="close" data-ng-click="closeModal()">&times;</button>
+                            <h4 class="modal-title">Login</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form novalidate="novalidate" name="loginForm">
+                                <label for="email">Email</label>
+                                <p><input type="text" id="email" name="email" data-ng-model="login.email" required/></p>
+                                <label for="password">Password</label>
+                                <p><input type="password" id="password" name="password" data-ng-model="login.password" required/></p>
+                                <br/><br/>
+                                <button type="button" class="btn login-modal" data-ng-click="loginbtn()"  data-ng-disabled="loginForm.$invalid">Login</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <p>Email: user@gmail.com</p>
+                            <p>Password: abc123$%</p>
+                        </div>
+        </script>
+
+        <!--Sign Up Modal-->
+        <script type="text/ng-template" id="signupModal">
+            <div class="modal-header">
+                        <button type="button" class="close" data-ng-click="closeModal()">&times;</button>
+                        <h4 class="modal-title">Sign Up</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form novalidate="novalidate" name="signupForm">
+                            <label for="fullname">Full Name</label>
+                            <p><input type="text" id="fullname" name="fullname" data-ng-model="signup.fullname" required /></p>
+                            <p class="text-danger" data-ng-show="signupForm.fullname.$error.required && signupForm.fullname.$dirty">Name is required</p>
+
+                            <label for="suemail">Email</label>
+                            <p><input type="email" id="suemail" name="suemail" data-ng-model="signup.email" required />
+                                <br />
+                                <span class="text-danger" data-ng-show="signupForm.suemail.$error.required && signupForm.suemail.$dirty">Email is required</span><span class="text-danger" data-ng-show="signupForm.suemail.$error.email">Enter a valid email address</span></p>
+
+
+                            <label for="supassword">Password</label>
+                            <p><input type="password" id="supassword" name="supassword" data-ng-model="signup.password" pattern="(?=.*[$%^&*])[A-Za-z\d$%^&*]{8,}$" required />
+                                <br />
+                                <span class="text-danger" data-ng-show="signupForm.supassword.$error.pattern">Minimum 8 characters and 1 special character ($%^&*)</span><span class="text-danger" data-ng-show="signupForm.supassword.$error.required && signupForm.supassword.$dirty">Password is required</span></p>
+
+
+                            <label for="confirmPass">Confirm Password</label>
+                            <p><input type="password" id="confirmPass" name="confirmPass" data-ng-model="signup.confirmPass" required /><br />
+                                <span class="text-danger" data-ng-show="signup.password != signup.confirmPass">Passwords do not match</span></p>
+                            
+                            
+                            <label>Account Type</label><br/>
+                            <label for="personal"><input type="radio" name="accType" id="personal" value="Personal" data-ng-model="signup.accType"/>Personal</label>
+                            <label for="business"><input type="radio" name="accType" id="business" value="Business" data-ng-model="signup.accType"/>Business</label>
+
+                            
+                            <p id="errorMsg" class="text-danger"></p><br />
+                            <button type="button" class="btn login-modal" data-ng-click="registerbtn()" data-ng-disabled="signupForm.$invalid">Sign Up</button>
+                        </form>
+                    </div>
+        </script>
+    </div>
+</div>
+
+<div class="disclaimer">
+    <p>This website is a partial requirement for the completion of the unit COS30043 Interface Design and Development and was built for educational purposes only.</p>
+</div>
