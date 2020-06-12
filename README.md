@@ -4,4 +4,4 @@ Expense and Income Management System built using Bootstrap and AngularJS (Fronte
 # How to run
 - Import the sql file to localhost / phpmyadmin.
 - Put the entire project folder into htdocs folder and then start XAMPP (or anything similar) server.
-- Enter localhost/Monager-Web (or localhost/<Folder name if you changed it>) in your browser
+- Enter *localhost/Monager-Web* (or localhost/[folder-name-if-you-decide-to-change-it]) in your browser
